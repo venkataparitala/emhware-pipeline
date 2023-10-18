@@ -35,6 +35,9 @@ jobs:
           hosts: ' ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}'
           privateKey: ${{ secrets.EC2_SSH_KEY }}
           command: |
+            ls -alrt
+            chmod +x *.sh
+            ls -alrt
             ./file.sh ${{ inputs.filename }} ${{ inputs.input_string }}
             ./webserver.sh  
           
