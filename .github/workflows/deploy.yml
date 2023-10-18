@@ -38,7 +38,7 @@ jobs:
             ls -alrt
             chmod +x *.sh
             ls -alrt
-            ./file.sh ${{ inputs.filename }} ${{ inputs.input_string }}
+            ./file.sh ${{ inputs.filename }} "${{ inputs.input_string }}"
             ./webserver.sh  
           
       # - name: Install SSH Key
