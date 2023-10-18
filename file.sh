@@ -3,6 +3,6 @@
 filename=$1
 input_string=$2
 
-echo $input_string > ~/$filename
+sudo echo $input_string > /files/$filename
 
-cat ~/$filename
+sudo cat /files/$filename
