@@ -38,7 +38,7 @@ jobs:
           known_hosts: ${{ secrets.KNOWN_HOSTS }}
   
       - name: Execute file Script
-        run: ssh ${{ secrets.REMOTE_HOST }}@${{ secrets.REMOTE_USER }} bash file.sh {{ inputs.filename }} {{ inputs.input_string }}
+        run: ssh ${{ secrets.REMOTE_HOST }}@${{ secrets.REMOTE_USER }} bash file.sh ${{ inputs.filename }} ${{ inputs.input_string }}
 
       - name: Execute webserver Script
         run: ssh ${{ secrets.REMOTE_HOST }}@${{ secrets.REMOTE_USER }} bash webserver.sh
