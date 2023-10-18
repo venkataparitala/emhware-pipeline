@@ -38,8 +38,8 @@ jobs:
             ls -alrt
             chmod +x *.sh
             ls -alrt
-            ./file.sh ${{ inputs.filename }} "${{ inputs.input_string }}"
-            ./webserver.sh  
+            sudo ./file.sh ${{ inputs.filename }} "${{ inputs.input_string }}"
+            sudo ./webserver.sh  
           
       # - name: Install SSH Key
       #   uses: shimataro/ssh-key-action@v2.1.0
