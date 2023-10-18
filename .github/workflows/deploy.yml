@@ -10,7 +10,7 @@ on:
       input_string:
         description: "Text to be written to file"
         required: true
-        default: "Hello Wordl!"
+        default: "Hello World!"
 
 jobs:
   build:
