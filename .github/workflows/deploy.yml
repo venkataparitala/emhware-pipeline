@@ -34,8 +34,8 @@ jobs:
       - name: Execute SSH commmands on remote server
         uses: JimCronqvist/action-ssh@master
         with:
-          hosts: 'user@domain.com'
-          privateKey: ${{ secrets.PRIVATE_KEY }}
+          hosts: '${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}'
+          privateKey: ${{ secrets.EC2_SSH_KEY }}
           command: |
             ls -lah
             ./file.sh ${{ inputs.filename }} ${{ inputs.input_string }}
