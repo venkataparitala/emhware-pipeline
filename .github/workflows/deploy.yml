@@ -35,20 +35,8 @@ jobs:
           hosts: ' ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}'
           privateKey: ${{ secrets.EC2_SSH_KEY }}
           command: |
-            ls -alrt
             chmod +x *.sh
-            ls -alrt
             sudo ./file.sh ${{ inputs.filename }} "${{ inputs.input_string }}"
+            sudo cat /test/${{ inputs.filename }}
             sudo ./webserver.sh  
-          
-      # - name: Install SSH Key
-      #   uses: shimataro/ssh-key-action@v2.1.0
-      #   with:
-      #     key: ${{ secrets.EC2_SSH_KEY }}
-      #     known_hosts: ${{ secrets.KNOWN_HOSTS }}
-  
-      # - name: Execute file Script
-      #   run: ssh ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} bash file.sh ${{ inputs.filename }} ${{ inputs.input_string }}
 
-      # - name: Execute webserver Script
-      #   run: ssh ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} bash webserver.sh
