@@ -31,17 +31,14 @@ jobs:
       - name: Run a one-line script
         run: echo Hello, world!
 
-      - name: Execute SSH commmands on remote server
-        uses: JimCronqvist/action-ssh@master
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2.1.0
         with:
-          hosts: '${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}'
-          privateKey: ${{ secrets.EC2_SSH_KEY }}
-          command: |
-            ls -lah
-            ./file.sh ${{ inputs.filename }} ${{ inputs.input_string }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
   
-      # - name: Execute file Script
-      #   run: ssh ${{ secrets.REMOTE_HOST }}@${{ secrets.REMOTE_USER }} bash file.sh ${{ inputs.filename }} ${{ inputs.input_string }}
+      - name: Execute file Script
+        run: ssh ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} bash file.sh ${{ inputs.filename }} ${{ inputs.input_string }}
 
-      # - name: Execute webserver Script
-      #   run: ssh ${{ secrets.REMOTE_HOST }}@${{ secrets.REMOTE_USER }} bash webserver.sh
+      - name: Execute webserver Script
+        run: ssh ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} bash webserver.sh
