@@ -31,14 +31,34 @@ jobs:
       - name: Run a one-line script
         run: echo Hello, world!
 
-      - name: Install SSH Key
-        uses: shimataro/ssh-key-action@v2.1.0
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@master
         with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
-          known_hosts: ${{ secrets.KNOWN_HOSTS }}
-  
-      - name: Execute file Script
-        run: ssh ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} bash file.sh ${{ inputs.filename }} ${{ inputs.input_string }}
+          port: 22
+          source: "nginx.conf,*.sh"
+          target: "/home/ubuntu/"
 
-      - name: Execute webserver Script
-        run: ssh ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} bash webserver.sh
+      - name: Execute SSH commmands on remote server
+        uses: JimCronqvist/action-ssh@master
+        with:
+          hosts: ' ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}'
+          privateKey: ${{ secrets.EC2_SSH_KEY }}
+          command: |
+            pwd
+            ls -lart
+            
+          
+      # - name: Install SSH Key
+      #   uses: shimataro/ssh-key-action@v2.1.0
+      #   with:
+      #     key: ${{ secrets.EC2_SSH_KEY }}
+      #     known_hosts: ${{ secrets.KNOWN_HOSTS }}
+  
+      # - name: Execute file Script
+      #   run: ssh ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} bash file.sh ${{ inputs.filename }} ${{ inputs.input_string }}
+
+      # - name: Execute webserver Script
+      #   run: ssh ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} bash webserver.sh
